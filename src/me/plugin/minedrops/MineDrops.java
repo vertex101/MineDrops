@@ -3,6 +3,7 @@ package me.plugin.minedrops;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,7 +26,7 @@ public class MineDrops extends JavaPlugin implements Listener{
         Block b = e.getBlock();
         Player p = e.getPlayer();
 
-        int getIron, getGold, getDiamond, pctIron, pctGold, pctDiamond;
+        int getIron, getGold, getDiamond, pctIron, pctGold, pctDiamond, pctCoal;
 
         getIron = getConfig().getInt("ironpct");
         getGold = getConfig().getInt("goldpct");
@@ -34,13 +35,20 @@ public class MineDrops extends JavaPlugin implements Listener{
         pctIron = getRandom(1, getIron + 20);
         pctGold = getRandom(1, getGold + 20);
         pctDiamond = getRandom(1, getDiamond + 20);
+        pctCoal = getRandom(1, 15);
 
         if (b.getType() == Material.IRON_ORE) {
             p.sendMessage(ChatColor.DARK_AQUA + "You have mined an Iron Ore! and the perecntage was " + pctIron + " and the base perectnage is " + getIron);
+            if (pctIron == 1) { b.getWorld().createExplosion(b.getLocation(), 4.0F); }
             if (pctIron == getIron) { b.getWorld().dropItemNaturally(b.getLocation(), new ItemStack(Material.GLOWSTONE_DUST)); }
+        } else if (b.getType() == Material.GOLD_ORE) {
+            if (pctGold == 1) { b.getWorld().createExplosion(b.getLocation(), 4.0F); }
+        } else if (b.getType() == Material.DIAMOND_ORE) {
+            if (pctDiamond == 1) { b.getWorld().createExplosion(b.getLocation(), 4.0F); }
+        } else if (b.getType() == Material.COAL_ORE) {
+            if (pctCoal == 4) { b.getWorld().createExplosion(b.getLocation(), 4.0F); }
         }
     }
-
     public int getRandom(int min, int max) {
         return (int)(Math.random() * (max - min)) + min;
     }
