@@ -25,8 +25,7 @@ public class MineDrops extends JavaPlugin implements Listener{
         Block b = e.getBlock();
         Player p = e.getPlayer();
 
-        int getIron, getGold, getDiamond;
-        int pctIron, pctGold, pctDiamond;
+        int getIron, getGold, getDiamond, pctIron, pctGold, pctDiamond;
 
         getIron = getConfig().getInt("ironpct");
         getGold = getConfig().getInt("goldpct");
