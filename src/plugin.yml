@@ -3,9 +3,3 @@ author: Vertex101
 version: 0.0.1
 description: A plugins that brings random chance to live or die breaking ores
 main: me.plugin.minedrops.MineDrops
-
-commands:
-  minedrop:
-    useage: /<command>
-    description: use this for all the minedrop commands
-    aliases: [md]
