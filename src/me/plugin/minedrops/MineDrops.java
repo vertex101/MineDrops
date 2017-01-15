@@ -9,14 +9,29 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import stats.plugin.minedrop.Metrics;
+
+import java.io.IOException;
 
 public class MineDrops extends JavaPlugin implements Listener{
 
     @Override
     public void onEnable() {
-        Bukkit.getServer().getPluginManager().registerEvents(this, this);
         getConfig().options().copyDefaults(true);
         saveConfig();
+        String getStats = getConfig().getString("plugin-stats");
+        if (getStats == "true") {
+            tellConsole("Plugin stats are being sent!");
+            try {
+                Metrics metrics = new Metrics(this);
+                metrics.start();
+            } catch (IOException e) {
+                // Failed to submit the stats :-(
+            }
+        } else {
+            tellConsole("Plugin stats are not being sent!");
+        }
+        Bukkit.getServer().getPluginManager().registerEvents(this, this);
     }
 
     @EventHandler
@@ -73,4 +88,5 @@ public class MineDrops extends JavaPlugin implements Listener{
     public int getRandom(int min, int max) {
         return (int)(Math.random() * (max - min)) + min;
     }
+    public void tellConsole(String message){ Bukkit.getConsoleSender().sendMessage("[MineDrops] " + message); }
 }
