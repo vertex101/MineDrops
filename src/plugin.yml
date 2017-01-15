@@ -1,5 +1,5 @@
 name: MineDrops
 author: Vertex101
-version: 0.0.1
+version: 0.0.2
 description: A plugins that brings random chance to live or die breaking ores
 main: me.plugin.minedrops.MineDrops
